@@ -42,7 +42,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>{
             int max = 0;
             int position = 0;
             
-            for (int x = tailIndex; x > 0; x--){
+            for (int x = tailIndex; x >= 0; x--){
                 int current = ((PriorityItem<T>)storage[x]).getPriority();
                 if(current > max){
                     max = current;
@@ -80,7 +80,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>{
             int max = 0;
             int position = 0;
             
-            for (int x = tailIndex; x > 0; x--){
+            for (int x = tailIndex; x >= 0; x--){
                 int current = ((PriorityItem<T>)storage[x]).getPriority();
                 if(current > max){
                     max = current;
@@ -88,8 +88,6 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>{
                 }
             }
             
-            int i = tailIndex;
-             
             for(int x = 0; x<tailIndex;x++){
                 if(((PriorityItem<T>) storage[x]).getPriority() == max){
                     Object temp = storage[x+1];
@@ -98,7 +96,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>{
                 }
                 
             }
-             tailIndex = tailIndex - 1;
+            tailIndex--;
         }
     }
 
