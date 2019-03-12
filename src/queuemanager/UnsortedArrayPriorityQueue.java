@@ -1,23 +1,11 @@
+
 package queuemanager;
 
 /**
- * Implementation of the PriorityQueue ADT using a sorted array for storage.
- *
- * Because Java does not allow generic arrays (!), this is implemented as an
- * array of Object rather than of PriorityItem&lt;T&gt;, which would be natural.
- * Array elements accessed then have to be cast to PriorityItem&lt;T&gt; before
- * using their getItem() or getPriority() methods.
- * 
- * This is an example of Java's poor implementation getting in the way. Java
- * fanboys will no doubt explain at length why it has to be this way, but note
- * that Eiffel allows it because Eiffel generics were done right from the start,
- * rather than being tacked on as an afterthought and limited by issues of
- * backward compatibility. Humph!
- * 
- * @param <T> The type of things being stored.
+ * @author Joseph
+ * @param <T>
  */
-public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
-    
+public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>{
     /**
      * Where the data is actually stored.
      */
@@ -40,7 +28,7 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
      *
      * @param size
      */
-    public SortedArrayPriorityQueue(int size) {
+    public UnsortedArrayPriorityQueue(int size) {
         storage = new Object[size];
         capacity = size;
         tailIndex = -1;
@@ -51,12 +39,23 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            return ((PriorityItem<T>) storage[0]).getItem();
+            int max = 0;
+            for (int x = 0; x < capacity; x++){
+                int current = ((PriorityItem<T>)storage[x]).getPriority();
+                if(current > max){
+                    max = current;
+                }
+            }            
+            return ((PriorityItem<T>) storage[max]).getItem();
         }
     }
-
-
-    @Override
+    
+    /**
+     *
+     * @param item
+     * @param priority
+     * @throws QueueOverflowException
+     */
     public void add(T item, int priority) throws QueueOverflowException {
         tailIndex = tailIndex + 1;
         if (tailIndex >= capacity) {
@@ -64,13 +63,8 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             tailIndex = tailIndex - 1;
             throw new QueueOverflowException();
         } else {
-            /* Scan backwards looking for insertion point */
-            int i = tailIndex;
-            while (i > 0 && ((PriorityItem<T>) storage[i - 1]).getPriority() < priority) {
-                storage[i] = storage[i - 1];
-                i = i - 1;
-            }
-            storage[i] = new PriorityItem<>(item, priority);
+            /*Insert at top of stack of stack */
+            storage[tailIndex] = new PriorityItem<>(item, priority);
         }
     }
 
@@ -79,10 +73,20 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            for (int i = 0; i < tailIndex; i++) {
-                storage[i] = storage[i + 1];
-            }
-            tailIndex = tailIndex - 1;
+            int max = 0;
+            for (int x = 0; x < capacity; x++){
+                int current = ((PriorityItem<T>)storage[x]).getPriority();
+                if(current > max){
+                    max = current;
+                }
+            }      
+            
+            int i = tailIndex;
+            do{
+                storage[i] = storage[i - 1];
+                i = i - 1;
+            } while(i > 0 && ((PriorityItem<T>) storage[i - 1]).getPriority() != max);
+            tailIndex = tailIndex - 1; 
         }
     }
 
