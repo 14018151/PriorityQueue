@@ -89,7 +89,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T>{
             }
             
             int i = tailIndex;
-            
+             
             for(int x = 0; x<tailIndex;x++){
                 if(((PriorityItem<T>) storage[x]).getPriority() == max){
                     Object temp = storage[x+1];
