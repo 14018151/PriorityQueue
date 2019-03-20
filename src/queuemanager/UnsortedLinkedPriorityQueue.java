@@ -1,7 +1,7 @@
 package queuemanager;
 
 /**
- *
+ 
  * @author 14018151
  */
 public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> { 
@@ -44,25 +44,52 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     public T head() throws QueueUnderflowException{
         if (isEmpty()) {
             throw new QueueUnderflowException();
-        }
-        ListNode<T> head = null;
-        int max = 0;
-        for (ListNode<T> node = top; node != null; node = node.getNext()) {
-            /* do something with node, perhaps with node.data */
-            int current = (node.getPriority());
-            if(current > max){
-                max=current;
-                head = node;
+        }else{
+            ListNode<T> head = null;
+            int max = 0;
+            for (ListNode<T> node = top; node != null; node = node.getNext()) {
+                /* do something with node, perhaps with node.data */
+                int current = (node.getPriority());
+                if(current > max){
+                    max=current;
+                    head = node;
+                }
+   
             }
-            
+            return head.getItem();
         }
-        return head.getItem();
     }
     
+    
+    //https://www.geeksforgeeks.org/linked-list-set-3-deleting-node/
     @Override
     public void remove() throws QueueUnderflowException{
-    
-    
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            int max = 0;
+            ListNode temp = top, prev = null; 
+            
+            for (ListNode<T> node = top; node != null; node = node.getNext()) {
+                int current = (node.getPriority());
+                if(current > max){
+                    max=current;
+                }
+            }
+            
+            if (temp != null && temp.getPriority() == max) {
+                top = temp.getNext();  
+                return;
+            }
+            
+            
+            while (temp != null && temp.getPriority() != max) {
+                prev = temp;
+                temp = temp.getNext();
+            }
+            
+            prev.next = temp.getNext();
+        }
     }
 
     
@@ -79,7 +106,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
                 result += ", ";
             }
             result += node.getItem();
-            result += node.getPriority();
+            result += ", " + node.getPriority();
         }
         result += "]";
         return result;
