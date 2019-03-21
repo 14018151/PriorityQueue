@@ -82,7 +82,6 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
                 return;
             }
             
-            
             while (temp != null && temp.getPriority() != max) {
                 prev = temp;
                 temp = temp.getNext();
@@ -92,7 +91,6 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
-    
     @Override
     public boolean isEmpty() {
         return top == null;
@@ -111,5 +109,4 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         result += "]";
         return result;
     }
-
 }

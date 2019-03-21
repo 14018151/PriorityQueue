@@ -42,7 +42,28 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     
     @Override
     public void add(T item, int priority) throws QueueOverflowException{
-         top = new ListNode<>(item, priority, top);
+        int max = 0;
+            ListNode temp = top, prev = null; 
+            
+            if(temp==null){
+                top = new ListNode<>(item,priority, top);
+            }else{
+                for (ListNode<T> node = top; node != null; node = node.getNext()) {
+                    int current = (node.getPriority());
+                    if(current > max){
+                        max=current;
+                        temp = node;
+                        System.out.println(temp.getItem());
+                    }
+                    
+                    while(temp != null && temp.getPriority() < max){
+                        prev = temp;
+                        temp = temp.getNext();
+                    }
+                }
+                System.out.println(temp.getNext());
+                top = new ListNode<>(item, priority, temp);
+            }
     }
     
     @Override
