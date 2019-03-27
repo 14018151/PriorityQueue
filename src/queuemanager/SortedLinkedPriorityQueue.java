@@ -40,31 +40,28 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         top = null;
     }
     
+    //https://www.geeksforgeeks.org/given-a-linked-list-which-is-sorted-how-will-you-insert-in-sorted-way/
     @Override
     public void add(T item, int priority) throws QueueOverflowException{
-        int max = 0;
-            ListNode temp = top, prev = null; 
+        ListNode current;
+        ListNode new_node = new ListNode(null, 0, null); 
+        new_node.item = item;
+        new_node.priority = priority;
+        
+        /* Special case for head node */
+        if (top == null || top.getPriority() <= priority) { 
+            top = new ListNode(item, priority, top);
+        } else {
+            /* Locate the node before point of insertion. */
+            current = top;
             
-            if(temp==null){
-                top = new ListNode<>(item,priority, top);
-            }else{
-                for (ListNode<T> node = top; node != null; node = node.getNext()) {
-                    int current = (node.getPriority());
-                    if(current > max){
-                        max=current;
-                        temp = node;
-                        System.out.println(temp.getItem());
-                    }
-                    
-                    while(temp != null && temp.getPriority() < max){
-                        prev = temp;
-                        temp = temp.getNext();
-                    }
-                }
-                System.out.println(temp.getNext());
-                top = new ListNode<>(item, priority, temp);
-            }
+            while (current.next != null && current.getNext().getPriority() > priority)
+                current = current.next;
+                new_node.next = current.getNext(); 
+                current.next = new_node; 
+         } 
     }
+    
     
     @Override
     public T head() throws QueueUnderflowException{
@@ -98,8 +95,8 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             if (node != top) {
                 result += ", ";
             }
-            result += node.getItem();
-            result += ", " + node.getPriority();
+            result += "(" + node.getItem();
+            result += ", " + node.getPriority() +")";
         }
         result += "]";
         return result;

@@ -103,8 +103,8 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             if (node != top) {
                 result += ", ";
             }
-            result += node.getItem();
-            result += ", " + node.getPriority();
+            result += "(" + node.getItem();
+            result += ", " + node.getPriority() + ")";
         }
         result += "]";
         return result;
