@@ -16,15 +16,15 @@ import static org.junit.Assert.*;
  *
  * @author 14018151
  */
-public class UnsortedArrayPriorityQueueTest {
-    UnsortedArrayPriorityQueue instance;
+public class UnsortedLinkedPriorityQueueTest {
+    UnsortedLinkedPriorityQueue instance;
     
-    public UnsortedArrayPriorityQueueTest() {
+    public UnsortedLinkedPriorityQueueTest() {
     }
     
     @Before
     public void setUp() {
-        instance = new UnsortedArrayPriorityQueue(8);
+        instance = new UnsortedLinkedPriorityQueue();
     }
 
     
@@ -55,23 +55,7 @@ public class UnsortedArrayPriorityQueueTest {
         Object expResult = false;
         Object result = instance.isEmpty();
         assertEquals(expResult, result);
-    }
-    
-    
-    /**
-     * Basic test of add method if too many things are added
-     */
-    @Test (expected = QueueOverflowException.class)
-    public void testAddMax() throws Exception {
-        System.out.println("addMax");
-       
-        instance = new UnsortedArrayPriorityQueue(2);
-        
-        instance.add("Test1", 0);
-        instance.add("Test2", 1);
-        instance.add("Test3", 2);
-    }
-    
+    }  
     
     /**
      * Test of head method
@@ -222,7 +206,7 @@ public class UnsortedArrayPriorityQueueTest {
     
     
     /**
-     * Test of toString method with 2 items in the list
+     * Test of toString method with 2 items in the list (linked list displays backwards compared to array by default)
      */
     @Test
     public void testToString() throws Exception{
@@ -230,7 +214,7 @@ public class UnsortedArrayPriorityQueueTest {
         
         instance.add("Test1", 1);
         instance.add("Test2", 2);
-        String expResult = "[(Test1, 1), (Test2, 2)]";
+        String expResult = "[(Test2, 2), (Test1, 1)]";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
