@@ -16,15 +16,15 @@ import static org.junit.Assert.*;
  *
  * @author 14018151
  */
-public class SortedArrayPriorityQueueTest {
-    SortedArrayPriorityQueue instance;
+public class UnsortedLinkedPriorityQueueTest {
+    UnsortedLinkedPriorityQueue instance;
     
-    public SortedArrayPriorityQueueTest() {
+    public UnsortedLinkedPriorityQueueTest() {
     }
     
     @Before
     public void setUp() {
-        instance = new SortedArrayPriorityQueue(8);
+        instance = new UnsortedLinkedPriorityQueue();
     }
 
     
@@ -41,7 +41,6 @@ public class SortedArrayPriorityQueueTest {
     }
     
     
-    
     /**
      * Basic test of add method and verified by checking if list is empty after adding something.
      */
@@ -56,23 +55,7 @@ public class SortedArrayPriorityQueueTest {
         Object expResult = false;
         Object result = instance.isEmpty();
         assertEquals(expResult, result);
-    }
-    
-    
-    /**
-     * Basic test of add method if too many things are added
-     */
-    @Test (expected = QueueOverflowException.class)
-    public void testAddMax() throws Exception {
-        System.out.println("addMax");
-       
-        instance = new SortedArrayPriorityQueue(2);
-        
-        instance.add("Test1", 0);
-        instance.add("Test2", 1);
-        instance.add("Test3", 2);
-    }
-    
+    }  
     
     /**
      * Test of head method
@@ -89,7 +72,7 @@ public class SortedArrayPriorityQueueTest {
         assertEquals(expResult, result);
     }
     
-         /**
+    /**
      * Test of remove method by removing when there is nothing in the list to begin with
      */
     @Test(expected = QueueUnderflowException.class)
@@ -100,7 +83,7 @@ public class SortedArrayPriorityQueueTest {
     }
     
     /**
-     * Tests the sorting ability of the add method by adding items in reverse order
+     * Tests the head function to search and find the head in a normal array
      */
     @Test
     public void testSort1() throws Exception {
@@ -109,14 +92,14 @@ public class SortedArrayPriorityQueueTest {
         instance.add("Test1", 5);
         instance.add("Test2", 2);
         instance.add("Test3", 0);
-        Object expResult = "[(Test1, 5), (Test2, 2), (Test3, 0)]";
-        Object result = instance.toString();
+        Object expResult = "Test1";
+        Object result = instance.head();
         assertEquals(expResult, result);
     }
     
     
     /**
-     * Tests the sorting of add method
+     * Tests the searching of the head method
      */
     @Test
     public void testSort2() throws Exception {
@@ -125,13 +108,13 @@ public class SortedArrayPriorityQueueTest {
         instance.add("Test1", 5);
         instance.add("Test2", 0);
         instance.add("Test3", 2);
-        Object expResult = "[(Test1, 5), (Test3, 2), (Test2, 0)]";
-        Object result = instance.toString();
+        Object expResult = "Test1";
+        Object result = instance.head();
         assertEquals(expResult, result);
     }
 
     /**
-     * Tests the sorting of add method
+     * Tests the searching of the head method
      */
     @Test
     public void testSort3() throws Exception {
@@ -140,13 +123,13 @@ public class SortedArrayPriorityQueueTest {
         instance.add("Test1", 2);
         instance.add("Test2", 5);
         instance.add("Test3", 0);
-        Object expResult = "[(Test2, 5), (Test1, 2), (Test3, 0)]";
-        Object result = instance.toString();
+        Object expResult = "Test2";
+        Object result = instance.head();
         assertEquals(expResult, result);
     }
     
     /**
-     * Tests the sorting of add method
+     * Tests the searching of the head method
      */
     @Test
     public void testSort4() throws Exception {
@@ -155,8 +138,8 @@ public class SortedArrayPriorityQueueTest {
         instance.add("Test1", 2);
         instance.add("Test2", 0);
         instance.add("Test3", 5);
-        Object expResult = "[(Test3, 5), (Test1, 2), (Test2, 0)]";
-        Object result = instance.toString();
+        Object expResult = "Test3";
+        Object result = instance.head();
         assertEquals(expResult, result);
     }
     
@@ -176,7 +159,7 @@ public class SortedArrayPriorityQueueTest {
     }
     
     
-     /**
+    /**
      * Test of remove method by adding two items, removing the top one, and then checking if the list still has the remaining item.
      */
     @Test
@@ -189,6 +172,24 @@ public class SortedArrayPriorityQueueTest {
         
         Object expResult = "[(Test2, 3)]";
         Object result = instance.toString();
+        assertEquals(expResult, result);
+    }
+    
+    
+    /**
+     * Tests remove method by adding three items, searching and removing the top one, and checking that the next highest in the list is correct
+     */
+    @Test
+    public void testRemove3() throws Exception {
+        System.out.println("remove2");
+        instance.add("Test1", 2);
+        instance.add("Test2", 5);
+        instance.add("Test3", 0);
+        
+        instance.remove();
+        
+        Object expResult = "Test1";
+        Object result = instance.head();
         assertEquals(expResult, result);
     }
 
@@ -205,7 +206,7 @@ public class SortedArrayPriorityQueueTest {
     
     
     /**
-     * Test of toString method with 2 items in the list
+     * Test of toString method with 2 items in the list (linked list displays backwards compared to array by default)
      */
     @Test
     public void testToString() throws Exception{

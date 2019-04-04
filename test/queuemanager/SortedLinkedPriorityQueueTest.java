@@ -16,15 +16,15 @@ import static org.junit.Assert.*;
  *
  * @author 14018151
  */
-public class SortedArrayPriorityQueueTest {
-    SortedArrayPriorityQueue instance;
+public class SortedLinkedPriorityQueueTest {
+    SortedLinkedPriorityQueue instance;
     
-    public SortedArrayPriorityQueueTest() {
+    public SortedLinkedPriorityQueueTest() {
     }
     
     @Before
     public void setUp() {
-        instance = new SortedArrayPriorityQueue(8);
+        instance = new SortedLinkedPriorityQueue();
     }
 
     
@@ -57,22 +57,7 @@ public class SortedArrayPriorityQueueTest {
         Object result = instance.isEmpty();
         assertEquals(expResult, result);
     }
-    
-    
-    /**
-     * Basic test of add method if too many things are added
-     */
-    @Test (expected = QueueOverflowException.class)
-    public void testAddMax() throws Exception {
-        System.out.println("addMax");
        
-        instance = new SortedArrayPriorityQueue(2);
-        
-        instance.add("Test1", 0);
-        instance.add("Test2", 1);
-        instance.add("Test3", 2);
-    }
-    
     
     /**
      * Test of head method
@@ -113,7 +98,6 @@ public class SortedArrayPriorityQueueTest {
         Object result = instance.toString();
         assertEquals(expResult, result);
     }
-    
     
     /**
      * Tests the sorting of add method
@@ -217,5 +201,4 @@ public class SortedArrayPriorityQueueTest {
         String result = instance.toString();
         assertEquals(expResult, result);
     }
-    
 }

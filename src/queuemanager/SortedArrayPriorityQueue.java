@@ -46,6 +46,7 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         tailIndex = -1;
     }
 
+    //Checks if the array is empty. If not then return the data from the first item in the array.
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -55,7 +56,7 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
-
+    //Takes the input data and searches for the correct point to place it in the array, shifting other data points forwards as it scans
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         tailIndex = tailIndex + 1;
@@ -74,6 +75,7 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    //Moves all the data "backwards" then drops the final item in the array
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -86,11 +88,13 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    //Returns false if there's something in the array, otherwise returns true.
     @Override
     public boolean isEmpty() {
         return tailIndex < 0;
     }
 
+    //Runs through the array appending each item and it's priority to the string to be displayed.
     @Override
     public String toString() {
         String result = "[";
